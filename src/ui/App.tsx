@@ -86,7 +86,7 @@ export function App({ adapter }: AppProps) {
       // Only clear once the text actually landed in the prompt.
       draftStore.clear();
     } else {
-      console.warn('[ChatReview] insertText reported failure — drafts kept.');
+      console.warn('[Quibble] insertText reported failure — drafts kept.');
     }
   }, [adapter]);
 

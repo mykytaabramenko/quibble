@@ -5,7 +5,7 @@ export default defineConfig({
   modules: ['@wxt-dev/module-react'],
   srcDir: '.',
   manifest: {
-    name: 'Chat Review',
+    name: 'Quibble',
     description:
       'Review AI chat answers like a GitHub PR: select text, comment, and inject quoted fragments back into the prompt.',
     // No special permissions needed — everything happens via the injected

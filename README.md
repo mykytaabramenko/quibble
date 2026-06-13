@@ -1,4 +1,4 @@
-# Chat Review
+# Quibble
 
 Review AI chat answers like a GitHub pull request. Select any fragment of a
 chat response, leave a comment or clarifying question on it, collect several

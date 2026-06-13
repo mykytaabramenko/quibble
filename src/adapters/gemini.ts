@@ -4,7 +4,7 @@ import type { SiteAdapter } from './types';
 const DEBUG = false;
 
 function log(...args: unknown[]) {
-  if (DEBUG) console.log('[ChatReview]', ...args);
+  if (DEBUG) console.log('[Quibble]', ...args);
 }
 
 /** Short, copy-pasteable description of a DOM element for logs. */

@@ -9,16 +9,11 @@ export default defineContentScript({
   cssInjectionMode: 'ui',
 
   async main(ctx) {
-    console.log(
-      '%c[ChatReview] content script loaded (build: debug-2)',
-      'color:#1a73e8;font-weight:bold',
-    );
     const adapter = getActiveAdapter();
-    console.log('[ChatReview] active adapter:', adapter?.id ?? 'NONE');
     if (!adapter) return;
 
     const ui = await createShadowRootUi(ctx, {
-      name: 'chat-review-ui',
+      name: 'quibble-ui',
       position: 'overlay',
       anchor: 'body',
       onMount(container) {

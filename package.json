@@ -1,7 +1,7 @@
 {
-  "name": "chat-review",
+  "name": "quibble",
   "version": "0.1.0",
-  "description": "Review AI chat answers like a GitHub PR — select text, comment, and inject quoted fragments back into the prompt.",
+  "description": "Quibble — review AI chat answers like a GitHub PR: select text, comment, and inject quoted fragments back into the prompt.",
   "private": true,
   "type": "module",
   "scripts": {
