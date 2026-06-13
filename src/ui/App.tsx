@@ -83,10 +83,10 @@ export function App({ adapter }: AppProps) {
   const insertAll = useCallback(() => {
     const ok = adapter.insertText(formatDrafts(draftStore.getSnapshot()));
     if (ok) {
+      // Only clear once the text actually landed in the prompt.
       draftStore.clear();
     } else {
-      // eslint-disable-next-line no-alert
-      alert('Could not find the prompt input to insert into.');
+      console.warn('[ChatReview] insertText reported failure — drafts kept.');
     }
   }, [adapter]);
 
