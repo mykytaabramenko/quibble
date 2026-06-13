@@ -1,0 +1,291 @@
+/* Everything lives inside a Shadow DOM, so these styles never leak into — or
+   get clobbered by — the host page. The root is a zero-size overlay; children
+   position themselves with `position: fixed` against the viewport. */
+
+.cr-root {
+  --cr-bg: #ffffff;
+  --cr-fg: #1f1f1f;
+  --cr-muted: #5f6368;
+  --cr-border: #dadce0;
+  --cr-accent: #1a73e8;
+  --cr-accent-fg: #ffffff;
+  --cr-quote-bar: #c7d2fe;
+  --cr-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+
+  font-family: 'Google Sans', Roboto, system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--cr-fg);
+}
+
+@media (prefers-color-scheme: dark) {
+  .cr-root {
+    --cr-bg: #1e1f20;
+    --cr-fg: #e3e3e3;
+    --cr-muted: #9aa0a6;
+    --cr-border: #3c4043;
+    --cr-accent: #8ab4f8;
+    --cr-accent-fg: #202124;
+    --cr-quote-bar: #4f5b78;
+    --cr-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* ---------- selection button ---------- */
+
+.cr-selection-button {
+  position: fixed;
+  z-index: 2147483647;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transform: translateY(0);
+  padding: 6px 10px;
+  border: none;
+  border-radius: 8px;
+  background: var(--cr-accent);
+  color: var(--cr-accent-fg);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--cr-shadow);
+  animation: cr-fade-in 0.12s ease-out;
+}
+
+.cr-selection-button:hover {
+  filter: brightness(1.05);
+}
+
+/* ---------- popover ---------- */
+
+.cr-popover {
+  position: fixed;
+  z-index: 2147483647;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--cr-border);
+  border-radius: 12px;
+  background: var(--cr-bg);
+  box-shadow: var(--cr-shadow);
+  animation: cr-fade-in 0.12s ease-out;
+}
+
+.cr-popover__quote,
+.cr-panel__quote {
+  margin: 0;
+  padding: 6px 0 6px 10px;
+  border-left: 3px solid var(--cr-quote-bar);
+  color: var(--cr-muted);
+  font-style: italic;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 6.5em;
+  overflow-y: auto;
+}
+
+.cr-popover__input {
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  padding: 8px 10px;
+  border: 1px solid var(--cr-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--cr-fg);
+  font: inherit;
+}
+
+.cr-popover__input:focus {
+  outline: 2px solid var(--cr-accent);
+  outline-offset: -1px;
+}
+
+.cr-popover__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cr-popover__hint {
+  color: var(--cr-muted);
+  font-size: 12px;
+}
+
+.cr-popover__buttons {
+  display: flex;
+  gap: 8px;
+}
+
+/* ---------- draft panel ---------- */
+
+.cr-panel {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 2147483646;
+  width: 340px;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--cr-border);
+  border-radius: 12px;
+  background: var(--cr-bg);
+  box-shadow: var(--cr-shadow);
+  overflow: hidden;
+}
+
+.cr-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border: none;
+  background: transparent;
+  color: var(--cr-fg);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cr-panel__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cr-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: var(--cr-accent);
+  color: var(--cr-accent-fg);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cr-panel__chevron {
+  transition: transform 0.15s ease;
+}
+
+.cr-panel__chevron[data-open='false'] {
+  transform: rotate(-90deg);
+}
+
+.cr-panel__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-y: auto;
+  border-top: 1px solid var(--cr-border);
+}
+
+.cr-panel__item {
+  position: relative;
+  display: flex;
+  gap: 8px;
+  padding: 10px 14px 10px 34px;
+  border-bottom: 1px solid var(--cr-border);
+}
+
+.cr-panel__index {
+  position: absolute;
+  left: 12px;
+  top: 11px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--cr-border);
+  color: var(--cr-fg);
+  font-size: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cr-panel__item-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.cr-panel__quote {
+  font-size: 13px;
+  max-height: 4.5em;
+}
+
+.cr-panel__comment {
+  margin: 6px 0 0;
+  word-break: break-word;
+}
+
+.cr-panel__remove {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--cr-muted);
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.cr-panel__remove:hover {
+  background: var(--cr-border);
+  color: var(--cr-fg);
+}
+
+.cr-panel__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 10px 14px;
+  border-top: 1px solid var(--cr-border);
+}
+
+/* ---------- buttons ---------- */
+
+.cr-btn {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.cr-btn--primary {
+  background: var(--cr-accent);
+  color: var(--cr-accent-fg);
+}
+
+.cr-btn--primary:hover {
+  filter: brightness(1.05);
+}
+
+.cr-btn--ghost {
+  background: transparent;
+  color: var(--cr-fg);
+  border-color: var(--cr-border);
+}
+
+.cr-btn--ghost:hover {
+  background: var(--cr-border);
+}
+
+@keyframes cr-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

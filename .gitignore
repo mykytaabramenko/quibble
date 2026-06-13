@@ -1,0 +1,16 @@
+# dependencies
+node_modules
+
+# wxt generated output
+.wxt
+.output
+
+# logs
+*.log
+npm-debug.log*
+
+# os / editor
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
