@@ -11,6 +11,7 @@
     "build:firefox": "wxt build -b firefox",
     "zip": "wxt zip",
     "icons": "node scripts/generate-icons.mjs",
+    "store-assets": "node scripts/generate-store-assets.mjs",
     "compile": "tsc --noEmit",
     "postinstall": "wxt prepare"
   },
