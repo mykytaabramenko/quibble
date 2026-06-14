@@ -2,7 +2,7 @@ const REPO_URL = 'https://github.com/mykytaabramenko/quibble';
 const GEMINI_URL = 'https://gemini.google.com';
 
 const STEPS = [
-  'Open Gemini and ask anything.',
+  'Open Gemini, ChatGPT, or Claude and ask anything.',
   'Select text in an answer — a Comment button appears.',
   'Add a note; repeat for as many fragments as you like.',
   'Hit “Insert into prompt” to drop the quotes + comments into the prompt.',

@@ -5,7 +5,12 @@ import './style.css';
 
 export default defineContentScript({
   // Sites we inject into. New chats are added here and given an adapter.
-  matches: ['https://gemini.google.com/*'],
+  matches: [
+    'https://gemini.google.com/*',
+    'https://chatgpt.com/*',
+    'https://chat.openai.com/*',
+    'https://claude.ai/*',
+  ],
   cssInjectionMode: 'ui',
 
   async main(ctx) {
