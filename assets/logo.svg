@@ -1,0 +1,25 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="128" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6366F1"/>
+      <stop offset="1" stop-color="#4338CA"/>
+    </linearGradient>
+  </defs>
+
+  <!-- rounded background -->
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+
+  <!-- comment bubble with a tail -->
+  <path
+    d="M30 28
+       h68 a14 14 0 0 1 14 14
+       v34 a14 14 0 0 1 -14 14
+       H58 l-14 16 v-16 h-14 a14 14 0 0 1 -14 -14
+       V42 a14 14 0 0 1 14 -14 Z"
+    fill="#FFFFFF"/>
+
+  <!-- three lines of "text"; the middle one is the highlighted selection -->
+  <rect x="34" y="39" width="60" height="9" rx="4.5" fill="#4338CA"/>
+  <rect x="34" y="55" width="60" height="9" rx="4.5" fill="#F59E0B"/>
+  <rect x="34" y="71" width="38" height="9" rx="4.5" fill="#4338CA"/>
+</svg>

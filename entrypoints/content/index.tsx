@@ -5,7 +5,7 @@ import './style.css';
 
 export default defineContentScript({
   // Sites we inject into. New chats are added here and given an adapter.
-  matches: ['*://gemini.google.com/*'],
+  matches: ['https://gemini.google.com/*'],
   cssInjectionMode: 'ui',
 
   async main(ctx) {
