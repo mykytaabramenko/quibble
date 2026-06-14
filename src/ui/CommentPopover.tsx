@@ -59,6 +59,14 @@ export function CommentPopover({
       className="cr-popover"
       style={{ left: `${position.left}px`, top: `${position.top}px`, width: POPOVER_WIDTH }}
       onMouseDown={(e) => e.stopPropagation()}
+      // Some chat apps (e.g. Claude) refocus their own composer on any
+      // keystroke heard at the document level. Stop our key/input events from
+      // bubbling out so they stay in this popover's textarea.
+      onKeyDown={(e) => e.stopPropagation()}
+      onKeyUp={(e) => e.stopPropagation()}
+      onKeyPress={(e) => e.stopPropagation()}
+      onInput={(e) => e.stopPropagation()}
+      onBeforeInput={(e) => e.stopPropagation()}
     >
       <blockquote className="cr-popover__quote">{quote}</blockquote>
       <textarea

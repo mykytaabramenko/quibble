@@ -1,8 +1,13 @@
 const REPO_URL = 'https://github.com/mykytaabramenko/quibble';
-const GEMINI_URL = 'https://gemini.google.com';
+
+const CHATS = [
+  { label: 'Gemini', url: 'https://gemini.google.com' },
+  { label: 'ChatGPT', url: 'https://chatgpt.com' },
+  { label: 'Claude', url: 'https://claude.ai' },
+];
 
 const STEPS = [
-  'Open Gemini and ask anything.',
+  'Open Gemini, ChatGPT, or Claude and ask anything.',
   'Select text in an answer — a Comment button appears.',
   'Add a note; repeat for as many fragments as you like.',
   'Hit “Insert into prompt” to drop the quotes + comments into the prompt.',
@@ -29,14 +34,24 @@ export function App() {
         ))}
       </ol>
 
+      <p className="popup__label">Open a chat</p>
       <div className="popup__actions">
-        <a className="popup__btn popup__btn--primary" href={GEMINI_URL} target="_blank" rel="noreferrer">
-          Open Gemini
-        </a>
-        <a className="popup__btn popup__btn--ghost" href={REPO_URL} target="_blank" rel="noreferrer">
-          GitHub
-        </a>
+        {CHATS.map((chat) => (
+          <a
+            key={chat.url}
+            className="popup__btn popup__btn--chat"
+            href={chat.url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {chat.label}
+          </a>
+        ))}
       </div>
+
+      <a className="popup__repo" href={REPO_URL} target="_blank" rel="noreferrer">
+        View on GitHub
+      </a>
     </div>
   );
 }

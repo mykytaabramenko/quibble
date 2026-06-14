@@ -94,6 +94,13 @@ body {
   margin-top: 1px;
 }
 
+.popup__label {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
 .popup__actions {
   display: flex;
   gap: 8px;
@@ -102,23 +109,33 @@ body {
 .popup__btn {
   flex: 1;
   text-align: center;
-  padding: 9px 12px;
+  padding: 9px 10px;
   border-radius: 8px;
   font-weight: 600;
   text-decoration: none;
   border: 1px solid transparent;
 }
 
-.popup__btn--primary {
-  background: var(--accent);
-  color: var(--accent-fg);
-}
-
-.popup__btn--ghost {
+.popup__btn--chat {
   color: var(--fg);
   border-color: var(--border);
+  background: transparent;
 }
 
-.popup__btn--ghost:hover {
-  background: var(--border);
+.popup__btn--chat:hover {
+  background: var(--num-bg);
+  border-color: var(--accent);
+}
+
+.popup__repo {
+  display: block;
+  text-align: center;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.popup__repo:hover {
+  text-decoration: underline;
 }
