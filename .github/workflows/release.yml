@@ -1,0 +1,60 @@
+name: Release to Chrome Web Store
+
+# Builds on every push to main as a sanity check, but only submits a new
+# version to the Chrome Web Store when package.json's "version" actually
+# changed (or when run manually). Bump the version in a commit to publish.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Need the previous commit so we can diff package.json's version.
+          fetch-depth: 2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run compile
+
+      - name: Build & zip
+        run: npm run zip
+
+      - name: Detect version change
+        id: version
+        run: |
+          CURR=$(jq -r .version package.json)
+          echo "current=$CURR" >> "$GITHUB_OUTPUT"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Manual dispatch — will publish $CURR"
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          elif PREV=$(git show HEAD~1:package.json 2>/dev/null | jq -r .version) && [ "$PREV" = "$CURR" ]; then
+            echo "Version unchanged ($CURR) — skipping publish"
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Version changed: ${PREV:-none} -> $CURR — will publish"
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Submit to Chrome Web Store
+        if: steps.version.outputs.publish == 'true'
+        run: npx wxt submit --chrome-zip "$(ls .output/*-chrome.zip)"
+        env:
+          CHROME_EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
+          CHROME_CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
+          CHROME_CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
+          CHROME_REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}

@@ -62,8 +62,17 @@ Everything site-specific lives behind the `SiteAdapter` interface
 
 No other code changes.
 
+## Releasing
+
+Pushing to `main` runs CI (`.github/workflows/release.yml`): it builds on every
+push and submits a new version to the Chrome Web Store **only when the
+`version` in `package.json` changes**. To cut a release, bump the version in a
+commit and push. One-time credential setup is in
+[`docs/RELEASE_SETUP.md`](docs/RELEASE_SETUP.md).
+
 ## Known rough edge
 
-Gemini's prompt box is a Quill rich-text editor. Insertion is done by
-simulating a paste (with an `execCommand` fallback). If Google changes the
-editor, `geminiAdapter.insertText` is the one place to adjust.
+Gemini's prompt box is a Quill rich-text editor. Insertion goes through
+`document.execCommand`, which fires the trusted editing events Quill listens
+for (a synthetic `paste` is ignored). If Google changes the editor,
+`geminiAdapter.insertText` is the one place to adjust.
