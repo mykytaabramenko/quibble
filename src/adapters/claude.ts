@@ -11,16 +11,13 @@ const PROMPT_SELECTORS = [
   'div[contenteditable="true"]',
 ];
 
-/** Never offer to comment on the composer / form controls. */
-const INPUT_GUARD_SELECTOR =
-  '.ProseMirror, [contenteditable="true"], textarea, input, fieldset';
-
 /**
- * Conversation messages. `.font-claude-message` marks assistant turns;
- * `main` is a broad fallback if class names change.
+ * Never offer to comment on the composer itself. Everything else on the page
+ * is fair game — Claude doesn't put its conversation in a stable container we
+ * can reliably match, so we allow-by-default and just exclude the input.
  */
-const MESSAGE_SELECTOR =
-  '.font-claude-message, [data-testid="user-message"], .prose, main';
+const COMPOSER_GUARD =
+  '.ProseMirror, [contenteditable="true"], [role="textbox"], textarea, input';
 
 export const claudeAdapter: SiteAdapter = {
   id: 'claude',
@@ -33,8 +30,7 @@ export const claudeAdapter: SiteAdapter = {
   isSelectionAllowed(range) {
     const el = elementFromRange(range);
     if (!el) return false;
-    if (el.closest(INPUT_GUARD_SELECTOR)) return false;
-    return Boolean(el.closest(MESSAGE_SELECTOR));
+    return !el.closest(COMPOSER_GUARD);
   },
 
   getPromptInput() {

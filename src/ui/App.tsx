@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { log } from '../adapters/insert';
+import { describe, elementFromRange, log } from '../adapters/insert';
 import type { SiteAdapter } from '../adapters/types';
 import { draftStore } from '../core/draftStore';
 import { formatDrafts } from '../core/format';
@@ -41,7 +41,7 @@ export function App({ adapter }: AppProps) {
         const text = sel.toString().trim();
         const range = sel.getRangeAt(0);
         const allowed = Boolean(text) && adapter.isSelectionAllowed(range);
-        log('selection:', JSON.stringify(text.slice(0, 50)), 'allowed:', allowed);
+        log('selection:', JSON.stringify(text.slice(0, 50)), 'allowed:', allowed, 'el:', describe(elementFromRange(range)));
         if (!allowed) {
           setSelection(null);
           return;
