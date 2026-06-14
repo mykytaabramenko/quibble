@@ -5,6 +5,10 @@ node_modules
 .wxt
 .output
 
+# secrets / local env (wxt submit writes .env.submit here)
+.env
+.env.*
+
 # logs
 *.log
 npm-debug.log*
