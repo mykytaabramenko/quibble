@@ -14,13 +14,15 @@ const PROMPT_SELECTORS = [
   'form textarea',
 ];
 
+/** Never offer to comment on the composer / form controls. */
+const INPUT_GUARD_SELECTOR =
+  '#prompt-textarea, .ProseMirror, textarea, input, [contenteditable="true"], form';
+
 /**
- * Never offer to comment on the composer itself. Everything else is fair game
- * (allow-by-default, exclude only the input) so we don't depend on a specific
- * message-container class that may change.
+ * Conversation messages. `[data-message-author-role]` is ChatGPT's stable
+ * marker; `main` is a broad fallback so this keeps working if class names move.
  */
-const COMPOSER_GUARD =
-  '#prompt-textarea, .ProseMirror, [contenteditable="true"], [role="textbox"], textarea, input';
+const MESSAGE_SELECTOR = '[data-message-author-role], .markdown, .prose, main';
 
 export const chatgptAdapter: SiteAdapter = {
   id: 'chatgpt',
@@ -33,7 +35,8 @@ export const chatgptAdapter: SiteAdapter = {
   isSelectionAllowed(range) {
     const el = elementFromRange(range);
     if (!el) return false;
-    return !el.closest(COMPOSER_GUARD);
+    if (el.closest(INPUT_GUARD_SELECTOR)) return false;
+    return Boolean(el.closest(MESSAGE_SELECTOR));
   },
 
   getPromptInput() {
