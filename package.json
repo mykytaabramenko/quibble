@@ -1,6 +1,6 @@
 {
   "name": "quibble",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Quibble — review AI chat answers like a GitHub PR: select text, comment, and inject quoted fragments back into the prompt.",
   "private": true,
   "type": "module",
